@@ -1,17 +1,19 @@
 import React from 'react';
-import styles from './Header.module.css'
+import styles from './Header.module.css';
+import mealsImage from "../../assets/meals.jpg";
 
 const Header = (props) => {
 
     return(
-        <div>
-            <section className={styles.header}>
+        <React.Fragment>
+            <header className={styles.header}>
                 <h1>ReactMeals</h1>
-            </section>
-            <section className={`${styles['main-image']}`}>
-                <img src={require("./meals.jpg")} alt="" />
-            </section>
-        </div>
+                <button>Cart</button>
+            </header>
+            <div className={styles['main-image']}>
+                <img src={mealsImage} alt="" />
+            </div>
+        </React.Fragment>
     )
 }
 
