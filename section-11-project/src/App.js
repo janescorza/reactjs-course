@@ -8,7 +8,6 @@ function App() {
     <Fragment>
       <Header />
       <main>
-        <Cart/>
         <Meals />
       </main>
     </Fragment>

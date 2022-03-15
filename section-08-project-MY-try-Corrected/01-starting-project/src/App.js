@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import "./App.css";
 import UserList from "./UsersList/UsersList";
 import UserForm from "./Form/UserForm";
-import ErrorModal from "./UI/ErrorModal/ErrorModal";
 
 function App() {
   const [usersList, setUsersList] = useState([
