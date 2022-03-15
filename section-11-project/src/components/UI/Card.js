@@ -3,9 +3,9 @@ import styles from './Card.module.css';
 
 const Card = (props) => {
 return(
-    <React.Fragment className={styles.card}>
+    <div className={`${styles.card} ${props.className}`}>
         {props.children}
-    </React.Fragment>
+    </div>
 )
 }
 
