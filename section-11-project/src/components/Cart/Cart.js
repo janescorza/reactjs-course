@@ -7,6 +7,7 @@ import Modal from "../UI/Modal";
 
 
 
+
 const Cart = (props) => {
   const DUMMY_MEALS = [
     {
@@ -25,9 +26,6 @@ const Cart = (props) => {
     },
   ];
 
-  const you_clicked = () => {
-    console.log("yay you clicked");
-  };
 
   const total = 13;
   const totalformatted = `${total} €`;
@@ -40,17 +38,18 @@ const Cart = (props) => {
     />
   ));
   return (
-    <div className={props.className}>
+    // <div className={props.className}>
+    <Modal onCancel={props.onCancel}>
           <ul className={styles["cart-items"]}>{cartItems}</ul>
           <div className={styles.total}>
-            <h2>Total amount</h2>
-            <h2>{totalformatted}</h2>
+            <span>Total amount</span>
+            <span>{totalformatted}</span>
           </div>
           <div className={styles.actions}>
             <button className={styles["button--alt"]} onClick={props.onCancel}>Close</button>
             <button className={styles.button}>Order</button>
           </div>
-    </div>
+    </Modal>
   );
 };
 

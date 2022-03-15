@@ -8,6 +8,12 @@ const Backdrop = (props) => {
   return <div className={styles.backdrop} onClick={props.onCancel} />;
 };
 
+const ModalOverlay = props => {
+  return <div className={styles.modal}>
+    {props.children}
+  </div>
+}
+
 const Modal = (props) => {
   return (
     <Fragment>
@@ -16,10 +22,14 @@ const Modal = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-      <Cart className={styles.modal} onCancel={props.onCancel}/>,
+      <ModalOverlay>{props.children}</ModalOverlay>,
        document.getElementById("modal-root"))}
+      {/* {ReactDOM.createPortal(
+      <Cart className={styles.modal} onCancel={props.onCancel}/>,
+       document.getElementById("modal-root"))} */}
     </Fragment>
   );
+
 };
 
 export default Modal;
