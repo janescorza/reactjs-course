@@ -5,8 +5,8 @@ import CartContext from '../../store/cart-context';
 
 
 const HeaderCartButton = (props) => {
-
-
+  
+  
   const cartContext = useContext(CartContext);//Header button component will be RE-evaluated whenever the context is updated
 
   const numberOfCartItems = cartContext.items.reduce((total, item) => {return total + item.amount},0)//<<<<<<<<<<<<<------------------
@@ -18,7 +18,7 @@ const HeaderCartButton = (props) => {
       </span>
       <span>Your Cart</span>
       <span className={styles.badge}>
-        {cartContext.totalAmount}
+        {numberOfCartItems}
       </span>
     </button>
   );
