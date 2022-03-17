@@ -20,7 +20,8 @@ class UserFinder extends Component {
 
   componentDidMount() {
     // Send http request...
-    this.setState({ filteredUsers: DUMMY_USERS });
+    this.setState({ filteredUsers: DUMMY_USERS }); 
+    
   }
 
   componentDidUpdate(prevProps, prevState) {
