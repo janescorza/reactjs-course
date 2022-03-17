@@ -18,10 +18,10 @@ class UserFinder extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {//Equivalent to useEffect(()=>{blabla},[])
     // Send http request...
     this.setState({ filteredUsers: DUMMY_USERS }); 
-    
+
   }
 
   componentDidUpdate(prevProps, prevState) {
