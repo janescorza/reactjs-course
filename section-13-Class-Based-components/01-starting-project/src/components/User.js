@@ -4,7 +4,7 @@ import classes from './User.module.css';
 
 class User extends Component {
   componentWillUnmount(){
-    console.log("User list hidden");
+    console.log("User list item removed");
   }
   render() {
     return <li className={classes.user}>{this.props.name}</li>;
