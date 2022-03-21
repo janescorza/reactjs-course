@@ -9,14 +9,15 @@ const BasicForm = (props) => {
   const nameIsValid = enteredName.trim() !== '';
   const nameHasError = !nameIsValid && nameIsTouched;
 
-  const nameInputClassNames = namehasError ? ''
+  const nameInputClassNames = namehasError ? 'form-control invalid' : 'form-control';
 
   return (
     <form>
       <div className='control-group'>
-        <div className='form-control'>
+        <div className={nameInputClassNames}>
           <label htmlFor='name'>First Name</label>
           <input type='text' id='name' />
+          {nameHasError && <p>Name must not be empty</p>}
         </div>
         <div className='form-control'>
           <label htmlFor='name'>Last Name</label>
