@@ -1,0 +1,142 @@
+
+Import {useState} from 'react'
+Import useInput from '../hooks/use-input'
+//----------------------------------------------------------------
+//--Aux functions for validations
+//----------------------------------------------------------------
+const isNotEmpty = (value) => value.trim() != "";
+
+const isGreaterOrEqualToZero = (value) => value
+
+let isAllowanceValid = (value) => value //To be overwritten
+
+
+
+
+
+const NewEmployeesForm = (props) => {
+
+    //----------------------------------------------------------------
+    //--General input elements Logic&HTML
+    //----------------------------------------------------------------
+    //-------------------------------
+    //--Name Form Field Logic
+    //-------------------------------
+    const {
+        value: enteredName,
+        isValid: nameIsValid,
+        hasError: nameHasError,
+        valueChangeHandler: nameChangeHandler,
+        valueBlurHandler: nameBlurHandler,
+        reset: resetName,
+    } = useForInput(isNotEmpty);
+
+    const nameInputClassNames = nameHasError
+        ? "form-control invalid"
+        : "form-control";
+    //-------------------------------
+    //--Name Form Field HTML
+    //-------------------------------
+        const nameFieldHTML = (
+        <div className={nameInputClassNames}>
+            <label htmlFor="name" className="required-field"  >First Name</label>
+            <input
+                type="text"
+                id="name"
+                onChange={nameChangeHandler}
+                onBlur={nameBlurHandler}
+                value={enteredName}
+                
+            />
+            {nameHasError && <p className="error-text">Name must not be empty</p>}
+            </div>
+    )
+
+    //----------------------------------------------------------------
+    //--Specific input elements Logic&HTML 
+    //----------------------------------------------------------------
+    //Similar to above
+
+
+    //----------------------------------------------------------------
+    //--Country specific grouping 
+    //----------------------------------------------------------------
+    const countryRelatedFields (country) =>{
+        switch (country) {
+            case "SPAIN":
+            isAllowanceValid = (value) => value > 30;
+            return {
+                countrySpecifics = maritalStates + socialIsurance
+            }
+            case "GHANA":
+            isAllowanceValid = (value) => value;
+            return {
+                countrySpecifics = maritalStates + numOfChidren
+            }
+            case "Brazil":
+            isAllowanceValid = (value) => value < 40;
+            return {
+                countrySpecifics = workinghours
+            }
+        }
+    }
+
+
+    //----------------------------------------------------------------
+    //--Full form validation for button enabling
+    //----------------------------------------------------------------
+
+    let formIsValid = false;
+    switch country
+    case"SPAIN"
+    if (enteredNameIsValid && enteredEmailIsValid) {
+        formIsValid = true;
+    }
+    break;
+    ...
+
+    //----------------------------------------------------------------
+    //--Form "submission" if form is valid and submitting
+    //----------------------------------------------------------------
+
+    const validateForm = (event) => {
+        event.preventDefault();
+        if (!formIsValid) {
+        return;
+        }
+        
+        //Do the JSON thing here
+
+        //Resetting fields
+        resetName();
+        resetLastName();
+        resetEmail();
+    };
+
+    //----------------------------------------------------------------
+    //--Start of HTML compilation
+    //----------------------------------------------------------------
+    return(
+        <form onSubmit={validateForm}>
+        <!-- -->
+            <div>
+            {General components}
+            </div>
+            <div>
+            {countryRelatedFields}
+            </div>
+            <div className="form-actions">
+                <button disabled={!formIsValid}>Submit</button>
+            </div>
+        </form>
+    )
+
+
+}
+
+
+
+
+
+
+

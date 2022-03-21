@@ -31,6 +31,23 @@ const BasicForm = (props) => {
   const nameInputClassNames = nameHasError
     ? "form-control invalid"
     : "form-control";
+   //----------------------------------------------------------------
+  //--Name form field HTML
+  //----------------------------------------------------------------
+  const nameFieldHTML = (
+    <div className={nameInputClassNames}>
+          <label htmlFor="name" className="required-field"  >First Name</label>
+          <input
+            type="text"
+            id="name"
+            onChange={nameChangeHandler}
+            onBlur={nameBlurHandler}
+            value={enteredName}
+            
+          />
+          {nameHasError && <p className="error-text">Name must not be empty</p>}
+        </div>
+  )
   //----------------------------------------------------------------
   //--Last Name form field
   //----------------------------------------------------------------
@@ -92,18 +109,7 @@ const BasicForm = (props) => {
   return (
     <form onSubmit={validateForm}>
       <div className="control-group">
-        <div className={nameInputClassNames}>
-          <label htmlFor="name" className="required-field"  >First Name</label>
-          <input
-            type="text"
-            id="name"
-            onChange={nameChangeHandler}
-            onBlur={nameBlurHandler}
-            value={enteredName}
-            
-          />
-          {nameHasError && <p className="error-text">Name must not be empty</p>}
-        </div>
+        {nameFieldHTML}
 
         <div className={lastNameInputClassNames}>
           <label htmlFor="lastName">Last Name</label>
