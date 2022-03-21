@@ -1,26 +1,39 @@
-import {useRef, useState} from 'react';
+import { useRef, useState } from "react";
 
 const SimpleInput = (props) => {
-  const namedInputRef = useRef();
-   const [enteredName, setEnteredName] = useState('');
-   
-   const userNameInputChangeHandler = (event) => {
+  // const namedInputRef = useRef();
+  const [enteredName, setEnteredName] = useState("");
+  const [enteredNameIsValid, setEnteredNameIsValid] = useState(true);
+
+  const userNameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
-  }
-  
+  };
+
   const formSubmissionHandler = (event) => {
     event.preventDefault();
+    if (enteredName.trim() === "") {
+      setEnteredNameIsValid(false);
+      return;
+    }
+    setEnteredNameIsValid(true);
     console.log(enteredName);
-    console.log("value via ref is: ", namedInputRef.current.value);
-    // namedInputRef.current.value = '';
-     setEnteredName('');
-   }
+    // console.log("value via ref is: ", namedInputRef.current.value);
+    // namedInputRef.current.value = '';//Directly manipulating the DOM, don't do it.
+    setEnteredName("");
+  };
 
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className='form-control'>
-        <label htmlFor='name'>Your Name</label>
-        <input type='text' id='name' value={enteredName} onChange={userNameInputChangeHandler} ref={namedInputRef} />
+      <div className="form-control">
+        <label htmlFor="name">Your Name</label>
+        <input
+          type="text"
+          id="name"
+          value={enteredName}
+          onChange={userNameInputChangeHandler}
+          // ref={namedInputRef}
+        />
+        {!enteredNameIsValid && <p className="error-text">Name must not be empty!</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
@@ -32,7 +45,7 @@ const SimpleInput = (props) => {
 export default SimpleInput;
 
 // import React, { useEffect, useRef } from react;
- 
+
 // const MultipleInput = ({ firstName, lastName, Email }) => {
 //   const inputRef = useRef({});
 //   useEffect(() => {
@@ -50,5 +63,5 @@ export default SimpleInput;
 //       </form>
 //   );
 // }
- 
+
 // export default MultipleInput;
