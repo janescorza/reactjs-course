@@ -1,23 +1,17 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const SimpleInput = (props) => {
   // const namedInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-  const [formIsValid, setFormIsValid] = useState(false);
 
   //This will rexecute every time a new value is entred so ti always has the latest value
-  const enteredNameIsValid = enteredName.trim() !=='';
+  const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
-
-  useEffect(() => {
-    if (enteredNameIsValid){
-      setFormIsValid(true);
-    }else{
-      setFormIsValid(false);
-    }
-  },[enteredNameIsValid])
-
+  let formIsValid = false;
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
 
   const userNameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -27,17 +21,16 @@ const SimpleInput = (props) => {
     setEnteredNameTouched(true);
   };
 
-
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
     setEnteredNameTouched(true);
 
-    if(!enteredNameIsValid){
+    if (!enteredNameIsValid) {
       return;
     }
     console.log(enteredName);
-    
+
     setEnteredName("");
     setEnteredNameTouched(false);
   };
@@ -70,4 +63,3 @@ const SimpleInput = (props) => {
 };
 
 export default SimpleInput;
-
