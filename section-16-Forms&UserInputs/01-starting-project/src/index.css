@@ -63,6 +63,15 @@ body {
   flex: 1;
 }
 
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
+  background-color: #ccc;
+  color: #464646;
+  border-color: #ccc;
+  cursor: not-allowed; 
+}
+
 button {
   font: inherit;
   background-color: #240370;
@@ -78,6 +87,9 @@ button:active {
   background-color: #33059e;
   border-color: #33059e;
 }
+
+
+
 
 .form-actions {
   text-align: right;

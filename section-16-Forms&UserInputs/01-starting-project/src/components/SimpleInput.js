@@ -1,13 +1,22 @@
-import {useState } from "react";
+import {useState, useEffect } from "react";
 
 const SimpleInput = (props) => {
   // const namedInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
 
   //This will rexecute every time a new value is entred so ti always has the latest value
   const enteredNameIsValid = enteredName.trim() !=='';
   const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
+
+  useEffect(() => {
+    if (enteredNameIsValid){
+      setFormIsValid(true);
+    }else{
+      setFormIsValid(false);
+    }
+  },[enteredNameIsValid])
 
 
   const userNameInputChangeHandler = (event) => {
@@ -54,7 +63,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
@@ -62,24 +71,3 @@ const SimpleInput = (props) => {
 
 export default SimpleInput;
 
-// import React, { useEffect, useRef } from react;
-
-// const MultipleInput = ({ firstName, lastName, Email }) => {
-//   const inputRef = useRef({});
-//   useEffect(() => {
-//     inputRef.current['first_name'].focus()
-//     inputRef.current['first_name'].value = firstName;
-//     inputRef.current['last_name'].value = lastName;
-//     inputRef.current['email'].value = Email;
-//   }, []);
-//   console.log("Rendering...");
-//   return(
-//       <form onSubmit={() => {/* inputRef.current.value */}}>
-//         <input ref={el => inputRef.current['first_name'] = el} placeholder='First Name'></input>
-//         <input ref={el => inputRef.current['last_name'] = el} placeholder='Last Name'></input>
-//         <input ref={el => inputRef.current['email'] = el}  placeholder='Email'></input>
-//       </form>
-//   );
-// }
-
-// export default MultipleInput;
