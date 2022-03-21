@@ -1,4 +1,16 @@
+import {useState} from 'react';
+
 const BasicForm = (props) => {
+  const [enteredName, setEnteredName] = useState('');
+  // const [nameIsValid, setNameIsValid] = useState(false);
+  const [nameIsTouched, setNameIsTouched] = useState(false);
+  
+
+  const nameIsValid = enteredName.trim() !== '';
+  const nameHasError = !nameIsValid && nameIsTouched;
+
+  const nameInputClassNames = namehasError ? ''
+
   return (
     <form>
       <div className='control-group'>
