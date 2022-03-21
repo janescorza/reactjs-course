@@ -12,15 +12,15 @@ const SimpleInput = (props) => {
     event.preventDefault();
     console.log(enteredName);
     console.log("value via ref is: ", namedInputRef.current.value);
-    namedInputRef.current.value = '';
-     
+    // namedInputRef.current.value = '';
+     setEnteredName('');
    }
 
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className='form-control'>
         <label htmlFor='name'>Your Name</label>
-        <input type='text' id='name' onChange={userNameInputChangeHandler} ref={namedInputRef} />
+        <input type='text' id='name' value={enteredName} onChange={userNameInputChangeHandler} ref={namedInputRef} />
       </div>
       <div className="form-actions">
         <button>Submit</button>
