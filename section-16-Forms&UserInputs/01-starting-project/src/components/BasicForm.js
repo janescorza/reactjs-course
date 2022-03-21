@@ -1,34 +1,49 @@
 import { useState } from "react";
+import useForInput from "../hooks/use-forinput";
 
 const BasicForm = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [nameIsTouched, setNameIsTouched] = useState(false);
+  const {
+    
+      value: enteredName,
+      isValid: nameIsValid,
+      hasError: nameHasError,
+      valueChangeHandler: nameChangeHandler,
+      valueBlurHandler: nameBlurHandler,
+      reset: resetName
+    
+   } = useForInput((value) => value.trim() !== "");
 
-  const nameIsValid = enteredName.trim() !== "";
-  const nameHasError = !nameIsValid && nameIsTouched;
+  // const [enteredName, setEnteredName] = useState("");
+  // const [nameIsTouched, setNameIsTouched] = useState(false);
+
+  // const nameIsValid = enteredName.trim() !== "";
+  // const nameHasError = !nameIsValid && nameIsTouched;
+
+  //-------------------------
   const nameInputClassNames = nameHasError
     ? "form-control invalid"
     : "form-control";
-
-  const nameChangeHandler = (event) => {
-    console.log("Name changed to: " + event.target.value);
-    setEnteredName(event.target.value);
-  };
-  const nameBlurHandler = () => {
-    setNameIsTouched(true);
-  };
+  //-------------------------
+  // const nameChangeHandler = (event) => {
+  //   console.log("Name changed to: " + event.target.value);
+  //   setEnteredName(event.target.value);
+  // };
+  // const nameBlurHandler = () => {
+  //   setNameIsTouched(true);
+  // };
 
   const validateForm = (event) => {
     event.preventDefault();
-    setNameIsTouched(true);
+    // setNameIsTouched(true);
 
     if (nameHasError) {
       return;
     }
     console.log("The name is: " + enteredName);
 
-    setNameIsTouched(false);
-    setEnteredName("");
+    resetName();
+    // setNameIsTouched(false);
+    // setEnteredName("");
   };
 
   let formIsValid = false;
