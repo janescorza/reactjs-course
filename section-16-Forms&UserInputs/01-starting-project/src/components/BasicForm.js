@@ -93,13 +93,14 @@ const BasicForm = (props) => {
     <form onSubmit={validateForm}>
       <div className="control-group">
         <div className={nameInputClassNames}>
-          <label htmlFor="name">First Name</label>
+          <label htmlFor="name" className="required-field"  >First Name</label>
           <input
             type="text"
             id="name"
             onChange={nameChangeHandler}
             onBlur={nameBlurHandler}
             value={enteredName}
+            
           />
           {nameHasError && <p className="error-text">Name must not be empty</p>}
         </div>

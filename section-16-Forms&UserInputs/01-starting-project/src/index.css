@@ -112,3 +112,8 @@ button:active {
 .error-text {
   color: #b40e0e;
 }
+
+.required-field::after {
+  content: "*";
+  color: red;
+}
