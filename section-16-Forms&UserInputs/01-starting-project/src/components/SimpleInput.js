@@ -1,6 +1,7 @@
 import {useRef, useState} from 'react';
 
 const SimpleInput = (props) => {
+  const namedInputRef = useRef();
    const [enteredName, setEnteredName] = useState('');
    
    const userNameInputChangeHandler = (event) => {
@@ -10,6 +11,8 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = (event) => {
     event.preventDefault();
     console.log(enteredName);
+    console.log("value via ref is: ", namedInputRef.current.value);
+    namedInputRef.current.value = '';
      
    }
 
@@ -17,7 +20,7 @@ const SimpleInput = (props) => {
     <form onSubmit={formSubmissionHandler}>
       <div className='form-control'>
         <label htmlFor='name'>Your Name</label>
-        <input type='text' id='name' onChange={userNameInputChangeHandler} />
+        <input type='text' id='name' onChange={userNameInputChangeHandler} ref={namedInputRef} />
       </div>
       <div className="form-actions">
         <button>Submit</button>
