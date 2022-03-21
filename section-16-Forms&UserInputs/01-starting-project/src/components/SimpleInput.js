@@ -30,3 +30,25 @@ const SimpleInput = (props) => {
 };
 
 export default SimpleInput;
+
+// import React, { useEffect, useRef } from react;
+ 
+// const MultipleInput = ({ firstName, lastName, Email }) => {
+//   const inputRef = useRef({});
+//   useEffect(() => {
+//     inputRef.current['first_name'].focus()
+//     inputRef.current['first_name'].value = firstName;
+//     inputRef.current['last_name'].value = lastName;
+//     inputRef.current['email'].value = Email;
+//   }, []);
+//   console.log("Rendering...");
+//   return(
+//       <form onSubmit={() => {/* inputRef.current.value */}}>
+//         <input ref={el => inputRef.current['first_name'] = el} placeholder='First Name'></input>
+//         <input ref={el => inputRef.current['last_name'] = el} placeholder='Last Name'></input>
+//         <input ref={el => inputRef.current['email'] = el}  placeholder='Email'></input>
+//       </form>
+//   );
+// }
+ 
+// export default MultipleInput;
