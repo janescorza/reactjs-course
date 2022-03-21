@@ -1,45 +1,38 @@
-import { useRef, useState } from "react";
+import {useState } from "react";
 
 const SimpleInput = (props) => {
   // const namedInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
-  const [enteredNameTouced, setEnteredNameTouched] = useState(false);
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
-  const validateName = () => {
-    setEnteredNameTouched(true);
+  //This will rexecute every time a new value is entred so ti always has the latest value
+  const enteredNameIsValid = enteredName.trim() !=='';
+  const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
 
-    if (enteredName.trim() === "") {
-      setEnteredNameIsValid(false);
-      return;
-    }
-    setEnteredNameIsValid(true);
-  };
-
-  const userNameInputBlurHandler = (event) => {
-    console.log("firing on blur");
-    validateName();
-  };
 
   const userNameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
-    if (event.target.value.trim() !== "") {
-      setEnteredNameIsValid(true);
-    }
   };
+
+  const userNameInputBlurHandler = (event) => {
+    setEnteredNameTouched(true);
+  };
+
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-    console.log("firing submission handler");
 
-    validateName();
+    setEnteredNameTouched(true);
+
+    if(!enteredNameIsValid){
+      return;
+    }
     console.log(enteredName);
-    // console.log("value via ref is: ", namedInputRef.current.value);
-    // namedInputRef.current.value = '';//Directly manipulating the DOM, don't do it.
+    
     setEnteredName("");
+    setEnteredNameTouched(false);
   };
 
-  const nameInputIsInValid = enteredNameTouced && !enteredNameIsValid;
   const nameInputClasses = nameInputIsInValid
     ? "form-control invalid"
     : "form-control";
@@ -51,9 +44,9 @@ const SimpleInput = (props) => {
         <input
           type="text"
           id="name"
-          value={enteredName}
-          onBlur={userNameInputBlurHandler}
           onChange={userNameInputChangeHandler}
+          onBlur={userNameInputBlurHandler}
+          value={enteredName}
           // ref={namedInputRef}
         />
         {nameInputIsInValid && (
