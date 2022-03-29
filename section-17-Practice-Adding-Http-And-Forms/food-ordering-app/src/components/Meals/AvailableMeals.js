@@ -14,7 +14,7 @@ const ACTIONS = {
 const initialState = {
   meals: [],
   isLoading: true,
-  error: false,
+  error: null,
 };
 
 const mealStateReducer = (state, action) => {
@@ -26,7 +26,7 @@ const mealStateReducer = (state, action) => {
     case ACTIONS.endLoading:
       return { ...state, isLoading: false };
     case ACTIONS.toggleError:
-      return { ...state, error: !state.error };
+      return { ...state, isLoading: false, error: action.error };
     default:
       return state;
   }
@@ -45,9 +45,13 @@ const AvailableMeals = () => {
     const fetchMeals = async () => {
       // setIsLoading(true);
       dispatch({ type: ACTIONS.startLoading });
+
       const response = await fetch(
         "https://react-js-course-b4b3c-default-rtdb.firebaseio.com/meals.json"
       );
+      if (!response.ok) {
+        throw new Error("Request failed!");
+      }
       const responseData = await response.json();
       //I got an object but I want an array
       const loadedMeals = [];
@@ -61,12 +65,22 @@ const AvailableMeals = () => {
         });
       }
       dispatch({ type: ACTIONS.addMeals, meals: loadedMeals });
+
       // setMeals(loadedMeals);
       // setIsLoading(false);
     };
-    fetchMeals();
+    fetchMeals().catch((error) =>
+      dispatch({ type: ACTIONS.toggleError, error: error })
+    );
   }, []); //No dependencies so it runs only on load
 
+  if (mealState.error) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{mealState.error}</p>
+      </section>
+    );
+  }
   if (mealState.isLoading) {
     return (
       <section className={classes.MealsLoading}>
