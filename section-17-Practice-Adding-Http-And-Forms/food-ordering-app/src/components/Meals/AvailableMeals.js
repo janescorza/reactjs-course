@@ -2,16 +2,52 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 import useHttp from "../../hooks/use-http";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
+
+const ACTIONS = {
+  addMeals: "add-meals",
+  startLoading: "start-loading",
+  endLoading: "end-loading",
+  toggleError: "toggle-error"
+};
+
+const initialState = {
+  meals: [],
+  isLoading: true,
+  error: false,
+};
+
+const mealStateReducer = (state, action) => {
+  switch (action.type) {
+    case ACTIONS.addMeals:
+      return { ...state, isLoading: false, meals: action.meals };
+    case ACTIONS.startLoading:
+      return { ...state, isLoading: true };
+    case ACTIONS.endLoading:
+      return { ...state, isLoading: false };
+    case ACTIONS.toggleError:
+      return {...state, error: !state.error};
+    default:
+      return state;
+  }
+};
 
 const AvailableMeals = () => {
   //USING FETCH TO GET DATA FROM HTTP:
-  const [meals,setMeals] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(()=>{
+  //Using state
+  // const [meals, setMeals] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  //Using reducer
+  const [mealState, dispatch] = useReducer(mealStateReducer, initialState);
+
+  useEffect(() => {
     const fetchMeals = async () => {
-      setIsLoading(true);
-      const response = await fetch('https://react-js-course-b4b3c-default-rtdb.firebaseio.com/meals.json');
+      // setIsLoading(true);
+      dispatch({type:ACTIONS.startLoading});
+      const response = await fetch(
+        "https://react-js-course-b4b3c-default-rtdb.firebaseio.com/meals.json"
+      );
       const responseData = await response.json();
       //I got an object but I want an array
       const loadedMeals = [];
@@ -24,14 +60,14 @@ const AvailableMeals = () => {
           price: responseData[mealKey].price,
         });
       }
-      setMeals(loadedMeals);
-      setIsLoading(false);
-      
-    }
+      dispatch({type:ACTIONS.addMeals, meals: loadedMeals});
+      // setMeals(loadedMeals);
+      // setIsLoading(false);
+    };
     fetchMeals();
-  },[]);//No dependencies so it runs only on load
+  }, []); //No dependencies so it runs only on load
 
-  const mealsList = meals.map((meal) => (
+  const mealsList = mealState.meals.map((meal) => (
     <MealItem
       key={meal.id}
       id={meal.id}
@@ -40,8 +76,7 @@ const AvailableMeals = () => {
       price={meal.price}
     />
   ));
-  
-  
+
   //USING A CUSTOM HTTP HOOK:
   /*
   const [mealsList, setMealsList] = useState([]);
@@ -79,12 +114,11 @@ const AvailableMeals = () => {
     fetchData(requestConfig, transformMeals);
   }, [fetchData]);
   */
-  
 
   return (
     <section className={classes.meals}>
       <Card>
-        {isLoading && <p>Loading available meals</p>}
+        {mealState.isLoading && <p>Loading available meals</p>}
         {mealsList}
       </Card>
     </section>
