@@ -8,7 +8,7 @@ const ACTIONS = {
   addMeals: "add-meals",
   startLoading: "start-loading",
   endLoading: "end-loading",
-  toggleError: "toggle-error"
+  toggleError: "toggle-error",
 };
 
 const initialState = {
@@ -26,7 +26,7 @@ const mealStateReducer = (state, action) => {
     case ACTIONS.endLoading:
       return { ...state, isLoading: false };
     case ACTIONS.toggleError:
-      return {...state, error: !state.error};
+      return { ...state, error: !state.error };
     default:
       return state;
   }
@@ -44,7 +44,7 @@ const AvailableMeals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       // setIsLoading(true);
-      dispatch({type:ACTIONS.startLoading});
+      dispatch({ type: ACTIONS.startLoading });
       const response = await fetch(
         "https://react-js-course-b4b3c-default-rtdb.firebaseio.com/meals.json"
       );
@@ -60,12 +60,20 @@ const AvailableMeals = () => {
           price: responseData[mealKey].price,
         });
       }
-      dispatch({type:ACTIONS.addMeals, meals: loadedMeals});
+      dispatch({ type: ACTIONS.addMeals, meals: loadedMeals });
       // setMeals(loadedMeals);
       // setIsLoading(false);
     };
     fetchMeals();
   }, []); //No dependencies so it runs only on load
+
+  if (mealState.isLoading) {
+    return (
+      <section className={classes.MealsLoading}>
+        <p>Loading available meals</p>
+      </section>
+    );
+  }
 
   const mealsList = mealState.meals.map((meal) => (
     <MealItem
@@ -117,10 +125,7 @@ const AvailableMeals = () => {
 
   return (
     <section className={classes.meals}>
-      <Card>
-        {mealState.isLoading && <p>Loading available meals</p>}
-        {mealsList}
-      </Card>
+      <Card>{mealsList}</Card>
     </section>
   );
 };
