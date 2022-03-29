@@ -7,8 +7,10 @@ import { useState, useEffect } from "react";
 const AvailableMeals = () => {
   //USING FETCH TO GET DATA FROM HTTP:
   const [meals,setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(()=>{
     const fetchMeals = async () => {
+      setIsLoading(true);
       const response = await fetch('https://react-js-course-b4b3c-default-rtdb.firebaseio.com/meals.json');
       const responseData = await response.json();
       //I got an object but I want an array
@@ -23,6 +25,7 @@ const AvailableMeals = () => {
         });
       }
       setMeals(loadedMeals);
+      setIsLoading(false);
       
     }
     fetchMeals();
@@ -81,7 +84,8 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {isLoading && <p>Loading available meals</p>}
+        {mealsList}
       </Card>
     </section>
   );
