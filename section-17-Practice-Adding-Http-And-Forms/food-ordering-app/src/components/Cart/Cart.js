@@ -4,6 +4,7 @@ import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import CartContext from '../../store/cart-context';
+import CheckOutForm from './CheckOutForm';
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -34,6 +35,11 @@ const Cart = (props) => {
     </ul>
   );
 
+  const submitForm = () => {
+    console.log("hello")
+    return
+  }
+
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
@@ -47,6 +53,7 @@ const Cart = (props) => {
         </button>
         {hasItems && <button className={classes.button}>Order</button>}
       </div>
+      <CheckOutForm onSubmit={submitForm}/>
     </Modal>
   );
 };
