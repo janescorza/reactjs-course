@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import Input from "./Input";
 import classes from "./CheckOut.module.css";
 
@@ -16,16 +16,49 @@ const initState = {
   city: "",
 };
 
+const isEmpty = (value) => value.trim().length === 0;
+const isFiveChars = (value) => value.trim().length === 5;
+
 const CheckOut = (props) => {
+  //For form validation
+  const [formInputValidity, setFormInputValidity] = useState({
+    name: true,
+    street: true,
+    city: true,
+    postal: true,
+  }); //Should be false from start and add a touched handler
+
   const nameInputRef = useRef();
   const streetInputRef = useRef();
   const postalInputRef = useRef();
   const cityInputRef = useRef();
 
+  const confirmHandler = (event) => {
+    event.preventDefault();
+
+    const nameIsValid = !isEmpty(state.name);
+    const streetIsValid = !isEmpty(state.street);
+    const postalIsValid = isFiveChars(state.postal);
+    const cityIsValid = !isEmpty(state.city);
+
+    setFormInputValidity({
+      name: nameIsValid,
+      street: streetIsValid,
+      postal: postalIsValid,
+      city: cityIsValid,
+    });
+
+    const formIsValid =
+      nameIsValid && streetIsValid && postalIsValid && cityIsValid;
+    if (!formIsValid) {
+      return;
+    }
+    props.onSubmit();
+  };
+
   const stateReducer = (state, action) => {
     switch (action.type) {
       case ACTIONS.addName:
-        console.log("Updating name");
         return { ...state, name: nameInputRef.current.value };
       case ACTIONS.addStreet:
         return { ...state, street: streetInputRef.current.value };
@@ -39,13 +72,8 @@ const CheckOut = (props) => {
   };
   const [state, dispatch] = useReducer(stateReducer, initState);
 
-  const confirmHandler = (event) => {
-    event.preventDefault();
-    
-  }
-
   return (
-    <form onSubmit={confirmHandler}>
+    <form>
       <div className={classes.control}></div>
       <Input
         label="Name"
@@ -54,6 +82,7 @@ const CheckOut = (props) => {
           ref: nameInputRef,
           value: state.name,
           type: "text",
+          errormessage: formInputValidity.name ? "" : "Add a correct name",
           onChange: dispatch.bind(null, { type: ACTIONS.addName }),
         }}
       />
@@ -64,6 +93,7 @@ const CheckOut = (props) => {
           ref: streetInputRef,
           value: state.street,
           type: "text",
+          errormessage: formInputValidity.street ? "" : "Add a correct street",
           onChange: dispatch.bind(null, { type: ACTIONS.addStreet }),
         }}
       />
@@ -74,6 +104,9 @@ const CheckOut = (props) => {
           ref: postalInputRef,
           value: state.postal,
           type: "text",
+          errormessage: formInputValidity.postal
+            ? ""
+            : "Add a correct postal code",
           onChange: dispatch.bind(null, { type: ACTIONS.addPostal }),
         }}
       />
@@ -84,11 +117,22 @@ const CheckOut = (props) => {
           ref: cityInputRef,
           value: state.city,
           type: "text",
+          errormessage: formInputValidity.city ? "" : "Add a correct city",
           onChange: dispatch.bind(null, { type: ACTIONS.addCity }),
         }}
       />
-      <button >Confirm</button>
-      <button type="button" onClick={props.onCancel}>Cancel</button>
+      <div className={classes.actions}>
+        <button className={classes["button--alt"]} onClick={props.onCancel}>
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className={classes.button}
+          onClick={confirmHandler}
+        >
+          Confirm
+        </button>
+      </div>
     </form>
   );
 };

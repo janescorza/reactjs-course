@@ -40,24 +40,10 @@ const Cart = (props) => {
     </ul>
   );
 
-  const submitForm = (event) => {
-    event.preventDefault();
+  const submitForm = () => {
+    setCheckOutState(false);
     console.log("hello");
-    return;
   };
-
-  const modalActions = (
-    <div className={classes.actions}>
-      <button className={classes["button--alt"]} onClick={props.onClose}>
-        Close
-      </button>
-      {hasItems && (
-        <button className={classes.button} onClick={orderHandler}>
-          Order
-        </button>
-      )}
-    </div>
-  );
 
   return (
     <Modal onClose={props.onClose}>
@@ -69,8 +55,23 @@ const Cart = (props) => {
       {checkOutState && (
         <CheckOut onSubmit={submitForm} onCancel={props.onClose} />
       )}
-      {!checkOutState && modalActions}
-      
+
+      <div className={classes.actions}>
+        {!checkOutState && (
+          <button className={classes["button--alt"]} onClick={props.onClose}>
+            Close
+          </button>
+        )}
+        {!checkOutState && hasItems && (
+          <button
+            type="button"
+            className={classes.button}
+            onClick={orderHandler}
+          >
+            Order
+          </button>
+        )}
+      </div>
     </Modal>
   );
 };
