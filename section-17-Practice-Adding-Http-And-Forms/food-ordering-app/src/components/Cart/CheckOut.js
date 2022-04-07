@@ -104,9 +104,7 @@ const CheckOut = (props) => {
           ref: postalInputRef,
           value: state.postal,
           type: "text",
-          errormessage: formInputValidity.postal
-            ? ""
-            : "Add a correct postal code",
+          errormessage: formInputValidity.postal ? "": "Add a correct postal code",
           onChange: dispatch.bind(null, { type: ACTIONS.addPostal }),
         }}
       />
