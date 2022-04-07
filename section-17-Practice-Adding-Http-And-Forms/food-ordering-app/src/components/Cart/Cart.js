@@ -24,6 +24,10 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
+  const emptyCartHandler = (item) => {
+    cartCtx.emptyCart();
+  };
+
   const orderHandler = () => {
     setCheckOutState((prevState) => !prevState);
   };
@@ -46,6 +50,7 @@ const Cart = (props) => {
       if (!response.ok) {
         throw new Error("Request failed!");
       } else {
+        emptyCartHandler();
         setDidSubmit(true);
       }
     } catch (err) {
@@ -103,7 +108,16 @@ const Cart = (props) => {
 
   const isSubmittingModalContent = <p>Senging order data...</p>;
 
-  const didSubmitModalContent = <p>Succesfullyt sent the order!</p>;
+  const didSubmitModalContent = (
+    <React.Fragment>
+      <p>Succesfully sent the order!</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
 
   return (
     <Modal onClose={props.onClose}>
