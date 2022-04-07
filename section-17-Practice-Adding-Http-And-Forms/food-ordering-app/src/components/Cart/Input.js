@@ -3,7 +3,7 @@ import styles from './Input.module.css'
 
 function Input(props) {
   return (
-      <section id={props.input.id} className={styles.input}>
+      <section id={props.input.id} className={` ${styles.input} ${props.inp}`}>
           <label htmlFor={props.input.id}>{props.label}</label>
               <input id={props.input.id} {...props.input}/>
       </section>
