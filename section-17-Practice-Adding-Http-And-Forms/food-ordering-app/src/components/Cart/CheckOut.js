@@ -53,7 +53,12 @@ const CheckOut = (props) => {
     if (!formIsValid) {
       return;
     }
-    props.onSubmit();
+    props.onSubmit({
+      name: state.name,
+      street: state.street,
+      postal: state.postal,
+      city: state.city
+    });
   };
 
   const stateReducer = (state, action) => {
