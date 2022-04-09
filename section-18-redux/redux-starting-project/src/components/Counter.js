@@ -4,8 +4,8 @@ import store, { reducerValues } from "../store/index";
 import { Component } from "react";
 
 const Counter = () => {
-  const toggleCounterHandler = () => {};
   const counter = useSelector(state => state.counter)
+  const showCounter = useSelector(state => state.showCounter)
   const dispatch = useDispatch();
 
   const incrementHandler = () =>{
@@ -18,10 +18,14 @@ const Counter = () => {
   const decrementHandler = () =>{
     dispatch({type: reducerValues.DECREMENT})
   }
+
+  const toggleCounterHandler = () =>{
+    dispatch({type: reducerValues.TOGGLE})
+  }
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {showCounter && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={incrementBy5Handler}>Increment by 5</button>

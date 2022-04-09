@@ -3,16 +3,19 @@ export const reducerValues = {
   INCREMENT: "increment",
   DECREMENT: "decrement",
   INCREASE: "increase",
+  TOGGLE: "toggle"
 };
 
-const reducerFunction = (state = { counter: 0 }, action) => {
+const reducerFunction = (state = { counter: 0, showCounter: true }, action) => {
   switch (action.type) {
     case reducerValues.INCREMENT:
-      return { counter: state.counter + 1 };
+      return { ...state, counter: state.counter + 1 };
     case reducerValues.INCREASE:
-      return { counter: state.counter + action.amount };
+      return { ...state, counter: state.counter + action.amount };
     case reducerValues.DECREMENT:
-      return { counter: state.counter - 1 };
+      return { ...state, counter: state.counter - 1 };
+    case reducerValues.TOGGLE:
+    return {...state, showCounter: !state.showCounter}
     default:
       return state;
   }
