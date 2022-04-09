@@ -3,10 +3,14 @@ export const reducerValues = {
   INCREMENT: "increment",
   DECREMENT: "decrement",
   INCREASE: "increase",
-  TOGGLE: "toggle"
+  TOGGLE: "toggle",
 };
 
-const reducerFunction = (state = { counter: 0, showCounter: true }, action) => {
+const initialState = {
+  counter: 0,
+  showCounter: true,
+};
+const reducerFunction = (state = initialState, action) => {
   switch (action.type) {
     case reducerValues.INCREMENT:
       return { ...state, counter: state.counter + 1 };
@@ -15,7 +19,7 @@ const reducerFunction = (state = { counter: 0, showCounter: true }, action) => {
     case reducerValues.DECREMENT:
       return { ...state, counter: state.counter - 1 };
     case reducerValues.TOGGLE:
-    return {...state, showCounter: !state.showCounter}
+      return { ...state, showCounter: !state.showCounter };
     default:
       return state;
   }
