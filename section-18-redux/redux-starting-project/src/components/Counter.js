@@ -4,11 +4,12 @@ import store, { reducerValues, counterActions } from "../store/index";
 import { Component } from "react";
 
 const Counter = () => {
-  const counter = useSelector(state => state.counter)
-  const showCounter = useSelector(state => state.showCounter)
+  const counter = useSelector(state => state.counter.counter)
+  const showCounter = useSelector(state => state.counter.showCounter)
   const dispatch = useDispatch();
 
   const incrementHandler = () =>{
+    console.log("🚀 ~ file: Counter.js ~ line 13 ~ incrementHandler ~ counterActions", counterActions)
     dispatch(counterActions.increment());
     // dispatch({type: reducerValues.INCREMENT})
   }
@@ -22,6 +23,7 @@ const Counter = () => {
 
   const toggleCounterHandler = () =>{
     dispatch(counterActions.toggle())
+    console.log("🚀 ~ file: Counter.js ~ line 26 ~ toggleCounterHandler ~ counterActions.toggle()", counterActions.toggle())
   }
   return (
     <main className={classes.counter}>
