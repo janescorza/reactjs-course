@@ -1,6 +1,7 @@
 import classes from './CartItem.module.css';
 
 const CartItem = (props) => {
+console.log("🚀 ~ file: CartItem.js ~ line 4 ~ CartItem ~ props", props)
   const { title, quantity, total, price } = props.item;
 
   return (
