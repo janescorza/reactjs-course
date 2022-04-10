@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialCartItems = {
   products: [],
+  totalProducts: 0
 };
 const cartItemsSlice = createSlice({
   name: "cartItems",
@@ -11,6 +12,7 @@ const cartItemsSlice = createSlice({
       const productIndex = state.products.findIndex(
         (prod) => prod.id === action.payload.id
       );
+      state.totalProducts++;
       if (productIndex !== -1) {
         state.products[productIndex].quantity++;
         //in list
@@ -31,6 +33,7 @@ const cartItemsSlice = createSlice({
       const productIndex = state.products.findIndex(
         (prod) => prod.id === action.payload
       );
+      --state.totalProducts;
       if (state.products[productIndex].quantity>1) {
         //substract one
         state.products[productIndex].quantity--;
