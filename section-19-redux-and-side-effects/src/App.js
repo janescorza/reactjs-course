@@ -3,33 +3,47 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import { useSelector, useDispatch } from "react-redux";
 import { cartStatusSliceActions } from "./store/cart";
-import { sendCartData } from "./store/cartItems";
+
+import { fetchCartData, sendCartData } from "./store/cart-actions";
+
 import { Fragment, useEffect } from "react";
 import Notification from "./components/UI/Notification";
 
 let isInitial = true;
 
 function App() {
+  const dispatch = useDispatch();
   const cartStatus = useSelector((state) => state.cartStatus);
   const cart = useSelector((state) => state.cartItems);
   const notification = useSelector(
     (state) => state.cartStatus.cartNotification
   );
-  const dispatch = useDispatch();
 
   useEffect(() => {
+    //will only run on first exection
+    dispatch(fetchCartData());
+  }, [dispatch]);
 
-    if(isInitial){
-      isInitial=false;
+  useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
       return;
     }
-
-    dispatch(sendCartData(cart));
+    if (cart.changed) {
+      //Only send data if local change has happened
+      dispatch(sendCartData(cart));
+    }
   }, [cart, dispatch]);
 
   return (
     <Fragment>
-      {notification && <Notification status={notification.status} title={notification.title} message={notification.message}/>}
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
       <Layout>
         {cartStatus.cartDisplayed && <Cart />}
         <Products />

@@ -1,18 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cartStatusSliceActions } from "./cart";
 
 const initialCartItems = {
   products: [],
   totalProducts: 0,
+  changed: false,
 };
 const cartItemsSlice = createSlice({
   name: "cartItems",
   initialState: initialCartItems,
   reducers: {
+    replaceCart(state, action) {
+      state.totalProducts = action.payload.totalProducts || 0;
+      state.products = action.payload.products || [];
+    },
     addItem(state, action) {
       const productIndex = state.products.findIndex(
         (prod) => prod.id === action.payload.id
       );
+      state.changed = true;
       state.totalProducts++;
       if (productIndex !== -1) {
         state.products[productIndex].quantity++;
@@ -35,6 +40,7 @@ const cartItemsSlice = createSlice({
         (prod) => prod.id === action.payload
       );
       --state.totalProducts;
+      state.changed = true;
       if (state.products[productIndex].quantity > 1) {
         //substract one
         state.products[productIndex].quantity--;
@@ -49,46 +55,6 @@ const cartItemsSlice = createSlice({
     },
   },
 });
-
-export const sendCartData = (cart) => {
-  return async (dispatch) => {
-    dispatch(
-      cartStatusSliceActions.showNotification({
-        status: "pending",
-        title: "Sending...",
-        message: "Sending upated cart data",
-      })
-    );
-    const sendRequest = async () => {
-      const response = await fetch(
-        "https://react-js-course-b4b3c-default-rtdb.firebaseio.com/cart.json",
-        { method: "PUT", body: JSON.stringify(cart) }
-      );
-      if (!response.ok) {
-        throw new Error("Sending cart data failed.");
-      }
-    };
-    try {
-      await sendRequest();
-
-      dispatch(
-        cartStatusSliceActions.showNotification({
-          status: "success",
-          title: "Success",
-          message: "Data sent succesfully!",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        cartStatusSliceActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Sending cart data failed!",
-        })
-      );
-    }
-  };
-};
 
 export const cartItemsSliceActions = cartItemsSlice.actions;
 export default cartItemsSlice.reducer;
