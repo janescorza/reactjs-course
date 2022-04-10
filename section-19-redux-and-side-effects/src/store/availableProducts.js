@@ -20,11 +20,11 @@ const initialAvailableItems = {
     }
 ]
 }
-createSlice({
+const productsSlice = createSlice({
     name:"availableProducts",
     initialState:initialAvailableItems,
     reducers: {
     }
 })
 
-const export 
+export default productsSlice.reducer;

@@ -14,6 +14,7 @@ const Cart = (props) => {
             key={Math.random().toString()}
             item={{
               // key: product.id,
+              id: product.id,
               title: product.title,
               quantity: product.quantity,
               total: product.total,
