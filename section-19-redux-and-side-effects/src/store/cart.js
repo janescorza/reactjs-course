@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialCartStatus = {
   totalProducts: 0,
   totalCost: 0,
-  cartDisplayed: false
+  cartDisplayed: false,
+  cartNotification: null
 };
 const cartStatusSlice = createSlice({
   name: "cartStatus",
@@ -19,6 +20,13 @@ const cartStatusSlice = createSlice({
     },
     toogleCart(state){
         state.cartDisplayed = !state.cartDisplayed;
+    },
+    showNotification(state, action){
+      state.cartNotification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message:action.payload.message
+      }
     }
   },
 });
