@@ -20,7 +20,7 @@ function App() {
   );
 
   useEffect(() => {
-    //will only run on first exection
+    //will only run on first exection as this is the main component and it only renders once
     dispatch(fetchCartData());
   }, [dispatch]);
 
