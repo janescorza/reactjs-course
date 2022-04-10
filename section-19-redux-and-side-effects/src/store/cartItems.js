@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { cartStatusSliceActions } from "./cart";
 
 const initialCartItems = {
   products: [],
-  totalProducts: 0
+  totalProducts: 0,
 };
 const cartItemsSlice = createSlice({
   name: "cartItems",
@@ -34,17 +35,60 @@ const cartItemsSlice = createSlice({
         (prod) => prod.id === action.payload
       );
       --state.totalProducts;
-      if (state.products[productIndex].quantity>1) {
+      if (state.products[productIndex].quantity > 1) {
         //substract one
         state.products[productIndex].quantity--;
         state.products[productIndex].total -=
           state.products[productIndex].price;
       } else {
         //delete item from array
-        state.products = state.products.filter(prod => prod.id !== state.products[productIndex].id);
+        state.products = state.products.filter(
+          (prod) => prod.id !== state.products[productIndex].id
+        );
       }
     },
   },
 });
+
+export const sendCartData = (cart) => {
+  return async (dispatch) => {
+    dispatch(
+      cartStatusSliceActions.showNotification({
+        status: "pending",
+        title: "Sending...",
+        message: "Sending upated cart data",
+      })
+    );
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://react-js-course-b4b3c-default-rtdb.firebaseio.com/cart.json",
+        { method: "PUT", body: JSON.stringify(cart) }
+      );
+      if (!response.ok) {
+        throw new Error("Sending cart data failed.");
+      }
+    };
+    try {
+      await sendRequest();
+
+      dispatch(
+        cartStatusSliceActions.showNotification({
+          status: "success",
+          title: "Success",
+          message: "Data sent succesfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        cartStatusSliceActions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
+    }
+  };
+};
+
 export const cartItemsSliceActions = cartItemsSlice.actions;
 export default cartItemsSlice.reducer;
