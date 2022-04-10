@@ -6,6 +6,8 @@ import { cartStatusSliceActions } from "./store/cart";
 import { Fragment, useEffect } from "react";
 import Notification from "./components/UI/Notification";
 
+let isInitial = true;
+
 function App() {
   const cartStatus = useSelector((state) => state.cartStatus);
   const cart = useSelector((state) => state.cartItems);
@@ -39,6 +41,11 @@ function App() {
         })
       );
     };
+
+    if(isInitial){
+      isInitial=false;
+      return;
+    }
     sendCartData().catch((error) => {
       dispatch(
         cartStatusSliceActions.showNotification({
