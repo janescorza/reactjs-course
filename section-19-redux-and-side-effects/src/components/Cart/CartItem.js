@@ -9,6 +9,7 @@ const CartItem = (props) => {
   const dispatch = useDispatch();
   const addToCartHandler = () => {
     dispatch(cartItemsSliceActions.addItem({id,title,price}));
+     
     dispatch(cartStatusSliceActions.addItem(price));
   };
   const removeFromCartHandler = () => {
