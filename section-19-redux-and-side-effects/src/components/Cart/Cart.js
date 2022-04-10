@@ -11,9 +11,8 @@ const Cart = (props) => {
       <ul>
         {cart.products.map((product) => (
           <CartItem
-            key={Math.random().toString()}
+            key = {product.id}
             item={{
-              // key: product.id,
               id: product.id,
               title: product.title,
               quantity: product.quantity,

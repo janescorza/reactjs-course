@@ -31,8 +31,6 @@ const cartItemsSlice = createSlice({
       const productIndex = state.products.findIndex(
         (prod) => prod.id === action.payload
       );
-      console.log("🚀 ~ file: cartItems.js ~ line 35 ~ removeItem ~ productIndex", productIndex)
-      console.log("🚀 ~ file: cartItems.js ~ line 36 ~ removeItem ~ state.products[productIndex]", state.products[productIndex])
       if (state.products[productIndex].quantity>1) {
         //substract one
         state.products[productIndex].quantity--;

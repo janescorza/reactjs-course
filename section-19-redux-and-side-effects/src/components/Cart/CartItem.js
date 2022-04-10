@@ -1,13 +1,20 @@
 import classes from './CartItem.module.css';
 import {  useDispatch } from "react-redux";
-import {cartItemsSliceActions} from "../../store/cartItems"
+import {cartItemsSliceActions} from "../../store/cartItems";
+import { cartStatusSliceActions } from '../../store/cart';
 
 
 const CartItem = (props) => {
   const { id, title, quantity, total, price } = props.item;
   const dispatch = useDispatch();
-  const addToCartHandler = () => dispatch(cartItemsSliceActions.addItem({id,title,price}));
-  const removeFromCartHandler = () => dispatch(cartItemsSliceActions.removeItem(id));
+  const addToCartHandler = () => {
+    dispatch(cartItemsSliceActions.addItem({id,title,price}));
+    dispatch(cartStatusSliceActions.addItem(price));
+  };
+  const removeFromCartHandler = () => {
+    dispatch(cartItemsSliceActions.removeItem(id));
+    dispatch(cartStatusSliceActions.removeItem(price));
+  };
   return (
     <li className={classes.item}>
       <header>
