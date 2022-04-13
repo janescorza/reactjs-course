@@ -6,7 +6,7 @@ function QuoteDetails() {
   const params = useParams();
   return (
     <div>
-      <p>QuoteDetails</p>
+      <h1>QuoteDetails</h1>
       <p>{params.quoteId}</p>
       {/* <Route path="/quotes/:quoteId/comments"> */}
       <Route path={`/quotes/${params.quoteId}/comments`}>

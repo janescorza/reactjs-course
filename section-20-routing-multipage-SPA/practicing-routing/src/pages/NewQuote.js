@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function NewQuote() {
   return (
-    <div><p>NewQuote</p></div>
-  )
+    <div>
+      <h1>NewQuote</h1>
+    </div>
+  );
 }
 
-export default NewQuote
+export default NewQuote;

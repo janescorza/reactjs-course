@@ -3,7 +3,7 @@ import React from "react";
 function AllQuotes() {
   return (
     <section>
-      <p>AllQuotes</p>
+      <h1>AllQuotes</h1>
     </section>
   );
 }
