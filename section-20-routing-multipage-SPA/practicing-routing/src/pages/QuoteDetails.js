@@ -7,6 +7,7 @@ function QuoteDetails() {
   return (
     <div>
       <h1>QuoteDetails</h1>
+      <h2>hey</h2>
       <p>{params.quoteId}</p>
       {/* <Route path="/quotes/:quoteId/comments"> */}
       <Route path={`/quotes/${params.quoteId}/comments`}>

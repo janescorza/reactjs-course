@@ -1,10 +1,12 @@
-import React from "react";
+import QuoteList from '../components/quotes/QuoteList'
+const DUMMY_QUOTES = [
+  {id: 'q1', author:'a', text:'abc'},
+  {id: 'q2', author:'b', text:'asw'}
+];
 
 function AllQuotes() {
   return (
-    <section>
-      <h1>AllQuotes</h1>
-    </section>
+      <QuoteList quotes={DUMMY_QUOTES}/>
   );
 }
 
