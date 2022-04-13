@@ -1,5 +1,14 @@
-const Welcome = () => {
-    return <h1> Welcome</h1>
-}
+import { Route } from "react-router-dom";
 
-export default Welcome
+const Welcome = () => {
+  return (
+    <section>
+      <h1> Welcome</h1>
+      <Route path="/welcome/new-user">
+        <p>Welcome, new user!</p>
+      </Route>
+    </section>
+  );
+};
+
+export default Welcome;
