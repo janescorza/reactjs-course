@@ -1,11 +1,11 @@
 import React from "react";
 
-function Quotes() {
+function AllQuotes() {
   return (
     <section>
-      <p>Quotes</p>
+      <p>AllQuotes</p>
     </section>
   );
 }
 
-export default Quotes;
+export default AllQuotes;
