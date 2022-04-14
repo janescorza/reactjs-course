@@ -45,7 +45,7 @@ function QuoteDetails() {
 
       {/* How to do it with routing (show only if comments aren't currenlty show) */}
       <Route to={`${match.path}`} exact>
-        <Link className="btn--flat" to={`/quotes/${params.quoteId}/comments`}>
+        <Link className="btn--flat" to={`${match.url}/comments`}>
           Show Comments
         </Link>
       </Route>
