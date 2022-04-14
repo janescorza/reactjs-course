@@ -27,8 +27,6 @@ function QuoteDetails() {
     <div>
       <h1>QuoteDetails</h1>
       <HighlightedQuote text={quote.text} author={quote.author} />
-      {/* <p>{params.quoteId}</p> */}
-      {/* <Route path="/quotes/:quoteId/comments"> */}
 
       <div className="centered">
         <Link
@@ -43,6 +41,13 @@ function QuoteDetails() {
           {showingComments ? "Hide Comments" : "Show Comments"}
         </Link>
       </div>
+
+      {/* How to do it with routing (show only if comments aren't currenlty show) */}
+      {/* <Route to={`/quotes/${params.quoteId}`}>
+        <Link className="btn--flat" to={`/quotes/${params.quoteId}/comments`}>
+          Show Comments
+        </Link>
+      </Route> */}
 
       <Route path={`/quotes/${params.quoteId}/comments`}>
         <Comments />
