@@ -6,10 +6,10 @@ import LoadingSpinner from "../components/UI/LoadingSpinner";
 import useHttp from "../hooks/use-http";
 import { getSingleQuote } from "../lib/api";
 
-const DUMMY_QUOTES = [
-  { id: "q1", author: "a", text: "abc" },
-  { id: "q2", author: "b", text: "asw" },
-];
+// const DUMMY_QUOTES = [
+//   { id: "q1", author: "a", text: "abc" },
+//   { id: "q2", author: "b", text: "asw" },
+// ];
 
 function QuoteDetails() {
   const params = useParams();
@@ -61,7 +61,6 @@ const {quoteId} = params;//To only pass the quote id as we don't want the effect
           {showingComments ? "Hide Comments" : "Show Comments"}
         </Link>
       </div> */}
-      console.log(quoteData);
       {/* How to do it with routing (show only if comments aren't currenlty show) */}
       <Route to={`${match.path}`} exact>
         <Link className="btn--flat" to={`${match.url}/comments`}>
