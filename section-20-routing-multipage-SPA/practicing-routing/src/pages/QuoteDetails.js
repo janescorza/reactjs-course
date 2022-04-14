@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, useLocation, useParams } from "react-router-dom";
+import { Link, Route, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 import { useState } from "react";
@@ -10,25 +10,26 @@ const DUMMY_QUOTES = [
 
 function QuoteDetails() {
   const params = useParams();
-  const location = useLocation();
-  console.log(location.pathname);
-  const [showingComments, setShowingComments] = useState(
-    location.pathname === `/quotes/${params.quoteId}/comments` ? true : false
-  );
+  // const location = useLocation();
+  const match = useRouteMatch();
+  // const [showingComments, setShowingComments] = useState(
+  //   location.pathname === `/quotes/${params.quoteId}/comments` ? true : false
+  // );
   const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
   if (!quote) {
     return <p>No quote found for that id!</p>;
   }
 
-  const showCommentsHandler = () => {
-    setShowingComments((prevState) => !prevState);
-  };
+  // const showCommentsHandler = () => {
+  //   setShowingComments((prevState) => !prevState);
+  // };
   return (
     <div>
       <h1>QuoteDetails</h1>
       <HighlightedQuote text={quote.text} author={quote.author} />
 
-      <div className="centered">
+{/* How to do it with state that controls when to allow showing and when to allow hiding comments */}
+      {/* <div className="centered">
         <Link
           className="btn--flat"
           to={
@@ -40,16 +41,16 @@ function QuoteDetails() {
         >
           {showingComments ? "Hide Comments" : "Show Comments"}
         </Link>
-      </div>
+      </div> */}
 
       {/* How to do it with routing (show only if comments aren't currenlty show) */}
-      {/* <Route to={`/quotes/${params.quoteId}`}>
+      <Route to={`${match.path}`} exact>
         <Link className="btn--flat" to={`/quotes/${params.quoteId}/comments`}>
           Show Comments
         </Link>
-      </Route> */}
+      </Route>
 
-      <Route path={`/quotes/${params.quoteId}/comments`}>
+      <Route path={`${match.path}/comments`}>
         <Comments />
       </Route>
     </div>
