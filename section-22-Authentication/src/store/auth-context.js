@@ -1,7 +1,7 @@
 /////////////////////////////////////////
 //Over complicated solution, simpler solution below
 ////////////////////////////////////////
-
+/*
 import React, { useState, useEffect, useCallback } from "react";
 
 let logoutTimer; //global variable in this file
@@ -84,4 +84,67 @@ export const AuthContextProvider = (props) => {
     </AuthContext.Provider>
   );
 };
+export default AuthContext;
+*/
+
+
+/////////////////////////////////////////
+//Far simpler and cleaner auth-context file
+////////////////////////////////////////
+import React, { useCallback, useEffect, useState } from 'react';
+ 
+let logoutTimer;
+ 
+const AuthContext = React.createContext({
+  token: '',
+  isLogged: false,
+  logIn: token => { },
+  logOut: () => { }
+});
+ 
+export const AuthContextProvider = props => {
+  const initialToken = localStorage.getItem('token');//Will be null if no token is set
+  const [token, setToken] = useState(initialToken);
+ 
+  const isLogged = !!token;//Gets true/false value from a truthy/flasy value
+ 
+  const logIn = (token, deadLine) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('deadLine', deadLine);
+    //Adding both the deadline and the token to the local storage on initial login
+    logoutTimer = setTimeout(logOut, deadLine - Date.now());
+    //Timer set with the limit date minus the current date which gives us remaining time to set in timeout
+    setToken(token);
+  };
+ 
+  const logOut = useCallback(() => {
+    setToken(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('deadLine');
+    clearTimeout(logoutTimer);
+    //Clear both the local storage and the state + running timer for timeout
+  }, []);
+ 
+  useEffect(() => {
+    if (token) {//if token is valid (won't enter on initial run pre logging in when token is null)
+      let timeLeft = localStorage.getItem('deadLine') - Date.now();
+      if (timeLeft < 6000) timeLeft = 0;//In case there is less than a minute left for autologout we set inmediate logout
+      logoutTimer = setTimeout(logOut, timeLeft);
+    }
+  }, [token, logOut])//Run on logout or on initial token change
+ 
+  const context = {
+    token,
+    isLogged,
+    logIn,
+    logOut
+  };
+ 
+  return (
+    <AuthContext.Provider value={context} >
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
+ 
 export default AuthContext;
