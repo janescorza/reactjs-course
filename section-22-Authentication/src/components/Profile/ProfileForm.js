@@ -1,11 +1,12 @@
 import { useRef, useContext } from "react";
 import classes from "./ProfileForm.module.css";
 import AuthContext from "../../store/auth-context";
-
+import { useHistory } from "react-router-dom";
 const ProfileForm = () => {
   const enteredPassword = useRef();
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
+  const history = useHistory();
   const changePasswordHandler = (event) => {
     event.preventDefault();
     const passwordValue = enteredPassword.current.value;
@@ -37,6 +38,7 @@ const ProfileForm = () => {
       }
     }).then((data)=>{
       console.log(data);
+      history.replace('./');
       //Changing the password worked
     })
     .catch((error) => {
