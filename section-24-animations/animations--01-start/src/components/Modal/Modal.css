@@ -27,6 +27,24 @@ animation: closeModal 1s ease-out forwards
 
 }
 
+.fade-slide-enter { /*Active for one frame for initial settings*/
+
+}
+
+.fade-slide-enter-active {/*Displayed during the entering, place animation here */
+    animation: openModal 0.4s ease-out forwards
+}
+.fade-slide-exit {
+
+}
+
+.fade-slide-enter-exit-active {
+    animation: closeModal 1s ease-out forwards
+
+}
+
+
+
 @keyframes openModal {
     0%{
 opacity: 0;
@@ -56,3 +74,4 @@ transform: translateY(0);
         transform: translateY(-100%);
     }
 }
+
