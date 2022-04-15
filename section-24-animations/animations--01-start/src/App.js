@@ -7,22 +7,47 @@ import List from "./components/List/List";
 
 class App extends Component {
   state = {
-    modalIsOpen: false
-  }
+    modalIsOpen: false,
+    showBlock: false,
+  };
 
-  showModal = () =>{
-    this.setState({modalIsOpen: true});
-  }
-  closeModal = () =>{
-    this.setState({modalIsOpen: false});
-  }
+  showModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  };
   render() {
     return (
       <div className="App">
         <h1>React Animations</h1>
-        <Modal show={this.state.modalIsOpen} closed={this.closeModal}/>
-        <Backdrop show={this.state.modalIsOpen}/>
-        <button className="Button" onClick={this.showModal}>Open Modal</button>
+        <button className="Button"
+          onClick={() =>
+            this.setState((prevState) => ({ showBlock: !prevState.showBlock }))
+          }
+        >
+          Toogle
+        </button>
+        <br/>
+        {this.state.showBlock ? (
+          <div
+            style={{
+              backgroundColor: "red",
+              width: 100,
+              height: 100,
+              margin: 'auto'
+            }}
+          ></div>
+        ) : null}
+        {this.state.modalIsOpen ? (
+          <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
+        ) : null}
+        {this.state.modalIsOpen ? (
+          <Backdrop show={this.state.modalIsOpen} />
+        ) : null}
+        <button className="Button" onClick={this.showModal}>
+          Open Modal
+        </button>
         <h3>Animating Lists</h3>
         <List />
       </div>
