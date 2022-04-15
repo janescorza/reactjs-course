@@ -10,7 +10,7 @@ const animationTiming = {
 
 const modal = (props) => {
   return (
-    <Transition in={props.show} timeout={animation} mountOnEnter unmountOnExit>
+    <Transition in={props.show} timeout={animationTiming} mountOnEnter unmountOnExit>
       {(state) => {
         const cssClasses = [
           "Modal",
