@@ -38,7 +38,7 @@ const ProfileForm = () => {
       }
     }).then((data)=>{
       console.log(data);
-      history.replace('./');
+      history.replace('/');
       //Changing the password worked
     })
     .catch((error) => {
