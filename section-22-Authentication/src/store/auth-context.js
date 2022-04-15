@@ -7,13 +7,18 @@ const AuthContext = React.createContext({
 });
 
 
- 
-const calculateRemainingTime = (expirationTime) => {
-  const currentTime = new Date().getTime();
-  const adjExpirationTime = new Date(expirationTime).getTime();
-  const remainingDuration = adjExpirationTime - currentTime;
-  return remainingDuration;
-};
+ //Old and over complex
+// const calculateRemainingTime = (expirationTime) => {
+//   const currentTime = new Date().getTime();
+//   const adjExpirationTime = new Date(expirationTime).getTime();
+//   const remainingDuration = adjExpirationTime - currentTime;
+//   return remainingDuration;
+// };
+
+
+//New an simpler:
+const calculateRemainingTime = expirationTime => expirationTime - Date.now();
+
 
 export const AuthContextProvider = (props) => {
   const initialToken = localStorage.getItem('token');

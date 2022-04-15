@@ -60,12 +60,17 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        authCtx.login(data.idToken, expirationTime.toISOString());
 
-        // authCtx.login(data.idToken);
+         //Old and over complex
+        // const expirationTime = new Date(
+        //   new Date().getTime() + +data.expiresIn * 1000
+        // );
+        // authCtx.login(data.idToken, expirationTime.toISOString());
+
+        //New an simpler:
+        authCtx.login(data.idToken, Date.now() + data.expiresIn * 1000);
+
+
         history.replace("/");
         console.log(data);
       })
