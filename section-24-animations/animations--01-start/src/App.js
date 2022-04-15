@@ -31,7 +31,6 @@ class App extends Component {
           Toogle
         </button>
         <br />
-        {/* {this.state.showBlock ? ( */}
         <Transition
           in={this.state.showBlock}
           timeout={1000}
@@ -51,13 +50,9 @@ class App extends Component {
             ></div>
           )}
         </Transition>
-        {/* ) : null} */}
-        {this.state.modalIsOpen ? (
-          <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
-        ) : null}
-        {this.state.modalIsOpen ? (
-          <Backdrop show={this.state.modalIsOpen} />
-        ) : null}
+        
+          {(state) => <Modal show={state} closed={this.closeModal} />}
+        {this.state.modalIsOpen ? <Backdrop show /> : null}
         <button className="Button" onClick={this.showModal}>
           Open Modal
         </button>
