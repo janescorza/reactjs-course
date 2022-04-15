@@ -32,16 +32,24 @@ class App extends Component {
         </button>
         <br />
         {/* {this.state.showBlock ? ( */}
-        <Transition in={this.state.showBlock} timeout={300}>
-          {state => <p>{state}</p>}
-          {/* <div
-            style={{
-              backgroundColor: "red",
-              width: 100,
-              height: 100,
-              margin: "auto",
-            }}
-          ></div> */}
+        <Transition
+          in={this.state.showBlock}
+          timeout={1000}
+          mountOnEnter
+          unmountOnExit
+        >
+          {(state) => (
+            <div
+              style={{
+                backgroundColor: "red",
+                width: 100,
+                height: 100,
+                margin: "auto",
+                transition: "opacity 1s ease-out",
+                opacity: state === "exiting" ? 0 : 1,
+              }}
+            ></div>
+          )}
         </Transition>
         {/* ) : null} */}
         {this.state.modalIsOpen ? (
