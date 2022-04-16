@@ -5,7 +5,7 @@ let globalState = {},
   listeners = [],
   actions = {};
 
-const useStore = () => {
+export const useStore = () => {
   const setState = useState(globalState)[1]; //Get jsut teh second value
 
 const dispatch = actionIdentifier =>{
@@ -27,4 +27,14 @@ const dispatch = actionIdentifier =>{
       listeners = listeners.filter((li) => li !== setState);
     };
   }, [setState]);
+  return [globalState, dispatch]
 };
+
+export const initStore = (userActions, initialState)=>{
+    if(initialState){
+        globalState = {...globalState, ...initialState}
+    }
+    actions = {...actions, ...userActions};
+
+}
+
