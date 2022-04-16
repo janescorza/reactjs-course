@@ -4,13 +4,17 @@ import { useSelector } from "react-redux";
 import ProductItem from "../components/Products/ProductItem";
 import { ProductsContext } from "../context/products-context";
 import "./Products.css";
+import { useStore } from "../hooks-store/store";
+//Acces to golbal store
 
 const Products = (props) => {
+  // const [state, dispatch] = useStore();
+  const state = useStore()[0];
   const productList = useContext(ProductsContext).products;
   // const productList = useSelector(state => state.shop.products);
   return (
     <ul className="products-list">
-      {productList.map((prod) => (
+      {state.products.map((prod) => (
         <ProductItem
           key={prod.id}
           id={prod.id}

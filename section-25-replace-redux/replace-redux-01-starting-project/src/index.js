@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 
 import ProductsProvider from "./context/products-context";
 
+import configureStore from "./hooks-store/products-store";
+
 import "./index.css";
 import App from "./App";
 import productReducer from "./store/reducers/products";
@@ -24,6 +26,10 @@ import productReducer from "./store/reducers/products";
 //   </Provider>,
 //   document.getElementById('root')
 // );
+
+
+configureStore(); //We initialize as the variables at the top of the store.js
+//file get initizalid when the produxts-context file uses the initStore hook
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
