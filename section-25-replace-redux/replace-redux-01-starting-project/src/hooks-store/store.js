@@ -8,10 +8,10 @@ let globalState = {},
 export const useStore = () => {
   const setState = useState(globalState)[1]; //Get jsut teh second value
 
-const dispatch = actionIdentifier =>{
+const dispatch = (actionIdentifier,payload) =>{
     //Calling one of the stored possible actions to alter the state
     //The actions are identified by id and here we run it ->()
-    const newState = actions[actionIdentifier](globalState);
+    const newState = actions[actionIdentifier](globalState,payload);
     globalState={...globalState, ...newState}
     for(const listener of listeners){
         listener(globalState);
