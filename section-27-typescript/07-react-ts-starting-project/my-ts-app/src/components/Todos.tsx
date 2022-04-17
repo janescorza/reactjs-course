@@ -7,7 +7,7 @@ import React from "react";
 //   items: string[];
 // };
 import Todo from "../models/todo";
-import TodoItem from './TodoItem';
+import TodoItem from "./TodoItem";
 
 // const Todos: React.FC<{items: string[]}> = (props)=>{
 // const Todos = ({ items }: TodosProps) => {
@@ -27,12 +27,12 @@ type TodosProps = {
   items: Todo[];
 };
 const Todos = ({ items }: TodosProps) => {
-    return (
-            <ul>
-              {items.map((item) => (
-                  <TodoItem item={item}/>
-              ))}
-            </ul>
-          );
-        };
+  return (
+    <ul>
+      {items.map((item) => (
+          <TodoItem key={item.id} itemInfo={item} />
+      ))}
+    </ul>
+  );
+};
 export default Todos;

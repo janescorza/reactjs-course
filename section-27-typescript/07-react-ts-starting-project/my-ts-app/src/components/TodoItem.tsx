@@ -1,15 +1,13 @@
-import React from "react";
-
 import Todo from "../models/todo";
 
 
 type TodoProps = {
-  item: Todo;
+  itemInfo: Todo;
 };
-const TodoItem = ({ item }: TodoProps) => {
+const TodoItem = ({ itemInfo }: TodoProps) => {
     return (
-            <li key={item.id}>
-              {item.text}
+            <li>
+              {itemInfo.text}
             </li>
           );
         };
