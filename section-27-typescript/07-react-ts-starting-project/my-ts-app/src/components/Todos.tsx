@@ -7,6 +7,7 @@ import React from "react";
 //   items: string[];
 // };
 import Todo from "../models/todo";
+import TodoItem from './TodoItem';
 
 // const Todos: React.FC<{items: string[]}> = (props)=>{
 // const Todos = ({ items }: TodosProps) => {
@@ -29,7 +30,7 @@ const Todos = ({ items }: TodosProps) => {
     return (
             <ul>
               {items.map((item) => (
-                <li key={item.id}>{item.text}</li>
+                  <TodoItem item={item}/>
               ))}
             </ul>
           );
