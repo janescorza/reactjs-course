@@ -8,7 +8,7 @@ import React from "react";
 // };
 import Todo from "../models/todo";
 import TodoItem from "./TodoItem";
-import styles from './Todos.module.css';
+import styles from "./Todos.module.css";
 // const Todos: React.FC<{items: string[]}> = (props)=>{
 // const Todos = ({ items }: TodosProps) => {
 
@@ -25,18 +25,17 @@ import styles from './Todos.module.css';
 
 type TodosProps = {
   items: Todo[];
-//   onRemoveTodo: ()=>void;
+  removeHandler: (id: string) => void;
 };
-const Todos = ({ items }: TodosProps) => {
-
-    const removeHandlerFunction = (id:string)=>{
-        console.log("hello",id);
-        
-    }
+const Todos = ({ items, removeHandler }: TodosProps) => {
   return (
     <ul className={styles.todos}>
       {items.map((item) => (
-          <TodoItem key={item.id} itemInfo={item} removeHandler={removeHandlerFunction} />
+        <TodoItem
+          key={item.id}
+          itemInfo={item}
+          removeHandler={removeHandler.bind(null, item.id)}
+        />
       ))}
     </ul>
   );
