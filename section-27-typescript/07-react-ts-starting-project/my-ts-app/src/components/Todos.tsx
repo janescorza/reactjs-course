@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 // const Todos: React.FC<{items?: string[]}> = (props)=>{ <-- Defines items as optional
 // const Todos: React.FC<{items: string[]}> = (props)=>{ <-- FC discouraged
 
@@ -6,9 +6,10 @@ import React from "react";
 // type TodosProps = {
 //   items: string[];
 // };
-import Todo from "../models/todo";
+
 import TodoItem from "./TodoItem";
 import styles from "./Todos.module.css";
+import {TodosContext} from '../store/todos-context';
 // const Todos: React.FC<{items: string[]}> = (props)=>{
 // const Todos = ({ items }: TodosProps) => {
 
@@ -23,18 +24,20 @@ import styles from "./Todos.module.css";
 //   );
 // };
 
-type TodosProps = {
-  items: Todo[];
-  removeHandler: (id: string) => void;
-};
-const Todos = ({ items, removeHandler }: TodosProps) => {
+// type TodosProps = {
+//   items: Todo[];
+//   removeHandler: (id: string) => void;
+// };
+const Todos = () => {
+const todosCtx = useContext(TodosContext);
+
   return (
     <ul className={styles.todos}>
-      {items.map((item) => (
+      {todosCtx.items.map((item) => (
         <TodoItem
           key={item.id}
           itemInfo={item}
-          removeHandler={removeHandler.bind(null, item.id)}
+          removeHandler={todosCtx.removeTodo.bind(null, item.id)}
         />
       ))}
     </ul>
