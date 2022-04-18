@@ -25,12 +25,18 @@ import styles from './Todos.module.css';
 
 type TodosProps = {
   items: Todo[];
+//   onRemoveTodo: ()=>void;
 };
 const Todos = ({ items }: TodosProps) => {
+
+    const removeHandlerFunction = (id:string)=>{
+        console.log("hello",id);
+        
+    }
   return (
     <ul className={styles.todos}>
       {items.map((item) => (
-          <TodoItem key={item.id} itemInfo={item} />
+          <TodoItem key={item.id} itemInfo={item} removeHandler={removeHandlerFunction} />
       ))}
     </ul>
   );
