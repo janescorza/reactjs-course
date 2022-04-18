@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import Todos from "./components/Todos";
 import Todo from "./models/todo";
+import NewTodo from "./components/NewTodo";
+
 
 function App() {
   const todos = [new Todo("LearnREAct"), new Todo("lerolero")];
