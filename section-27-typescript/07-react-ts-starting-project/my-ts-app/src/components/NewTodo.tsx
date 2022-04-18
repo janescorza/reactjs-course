@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import { classicNameResolver } from "typescript";
+import styles from './NewTodo.module.css'
 
 type newTodo ={
     onAddTodo: (text: string) => void;
@@ -16,7 +18,7 @@ const NewTodo = ({onAddTodo}: newTodo) => {
   };
 
   return (
-    <form onSubmit={newTodoHandler}>
+    <form onSubmit={newTodoHandler} className={styles.form}>
       <label htmlFor="text">Todo text</label>
       <input type="text" id="text" ref={textvalue} />
       <button>Add todo</button>

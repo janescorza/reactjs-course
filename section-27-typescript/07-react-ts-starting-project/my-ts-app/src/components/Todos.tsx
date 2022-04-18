@@ -8,7 +8,7 @@ import React from "react";
 // };
 import Todo from "../models/todo";
 import TodoItem from "./TodoItem";
-
+import styles from './Todos.module.css';
 // const Todos: React.FC<{items: string[]}> = (props)=>{
 // const Todos = ({ items }: TodosProps) => {
 
@@ -28,7 +28,7 @@ type TodosProps = {
 };
 const Todos = ({ items }: TodosProps) => {
   return (
-    <ul>
+    <ul className={styles.todos}>
       {items.map((item) => (
           <TodoItem key={item.id} itemInfo={item} />
       ))}
